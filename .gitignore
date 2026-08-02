@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.angular/
+coverage/
+test-results/
+playwright-report/
+.env
+
+# Contexto local do ferramentas de IA — não versionado
+.ai-context.md
+.ai-context-*.md
