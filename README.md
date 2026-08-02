@@ -1,6 +1,6 @@
 # tcc-frontend
 
-Dashboard do TCC — Sistema Inteligente para Licitações.
+Dashboard do TCC - Sistema Inteligente para Licitações.
 
 Angular + Material + ECharts. Consome o `tcc-api` por HTTP.
 Cinco telas: visão geral, consulta, análise histórica, previsões e anomalias.
