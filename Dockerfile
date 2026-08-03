@@ -1,5 +1,5 @@
 # --- desenvolvimento: código por bind mount, ng serve com hot reload ---
-FROM node:22-alpine AS dev
+FROM node:24-alpine AS dev
 
 # Chromium para rodar os specs em modo headless dentro do container.
 RUN apk add --no-cache chromium
@@ -10,7 +10,10 @@ ENV CHROME_BIN=/usr/bin/chromium-browser
 # traz o usuário "node" com UID 1000.
 ARG UID=1000
 ARG GID=1000
-RUN mkdir -p /app /home/node/.npm-global \
+# node_modules precisa existir na imagem com o owner correto: o Docker herda
+# o ownership do ponto de montagem ao criar o volume nomeado. Sem isso, o
+# volume nasce como root e o npm install falha com EACCES.
+RUN mkdir -p /app/node_modules /home/node/.npm-global \
     && chown -R "$UID:$GID" /app /home/node
 
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
@@ -24,7 +27,7 @@ WORKDIR /app
 CMD ["sh", "-c", "[ -d node_modules/@angular ] || npm install; npm start -- --host 0.0.0.0 --port 4200 --poll 1000"]
 
 # --- build de produção ---
-FROM node:22-alpine AS build
+FROM node:24-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
