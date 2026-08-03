@@ -9,3 +9,6 @@ playwright-report/
 # Contexto local do Claude Code — não versionado
 CLAUDE.md
 CLAUDE-*.md
+
+# Angular
+.angular/
