@@ -17,7 +17,7 @@ describe('HealthService', () => {
     http = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => http.verify());
+  afterEach(() => { http.verify(); });
 
   it('consulta o endpoint de health da API', () => {
     let recebido: HealthStatus | undefined;
